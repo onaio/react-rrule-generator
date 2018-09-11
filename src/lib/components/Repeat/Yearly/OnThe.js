@@ -46,7 +46,7 @@ const RepeatYearlyOnThe = ({
         </select>
       </div>
 
-      <div className="col-sm-3">
+      <div className="col-sm-2">
         <select
           name="repeat.yearly.onThe.day"
           aria-label="Repeat yearly on the day"
@@ -59,7 +59,7 @@ const RepeatYearlyOnThe = ({
         </select>
       </div>
 
-      <div className="col-sm-1">
+      <div className="col-sm0">
         of
       </div>
 

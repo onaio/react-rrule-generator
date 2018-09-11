@@ -59,8 +59,8 @@ class Repeat extends React.Component {
               {this.isOptionAvailable('Monthly', options) && <option value="Monthly">Monthly</option>}
               {this.isOptionAvailable('Weekly', options) && <option value="Weekly">Weekly</option>}
               {this.isOptionAvailable('Daily', options) && <option value="Daily">Daily</option>}
-              {this.isOptionAvailable('Daily', options) && <option value="Never">Never</option>}
               {this.isOptionAvailable('Hourly', options) && <option value="Hourly">Hourly</option>}
+              {this.isOptionAvailable('Daily', options) && <option value="Never">Never</option>}
             </select>
           </div>
         </div>
@@ -91,7 +91,7 @@ Repeat.propTypes = {
     }).isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
-  isNever: PropTypes.bool.isRequired,
+  isNever: PropTypes.bool,
 };
 
 export default Repeat;
