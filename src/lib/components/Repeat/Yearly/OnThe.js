@@ -25,11 +25,11 @@ const RepeatYearlyOnThe = ({
           />
         )}
       </div>
-      <div className="col-sm-2">
+      <div className="col-sm0">
         on the
       </div>
 
-      <div className="col-sm-2">
+      <div className="col-sm-3">
         <select
           name="repeat.yearly.onThe.which"
           aria-label="Repeat yearly on the which"
@@ -46,7 +46,7 @@ const RepeatYearlyOnThe = ({
         </select>
       </div>
 
-      <div className="col-sm-2">
+      <div className="col-sm-3">
         <select
           name="repeat.yearly.onThe.day"
           aria-label="Repeat yearly on the day"

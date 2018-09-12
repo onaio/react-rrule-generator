@@ -4,6 +4,7 @@ import moment from 'moment';
 
 import numericalFieldHandler from '../../../utils/numericalFieldHandler';
 import { MONTHS } from '../../../constants/index';
+import '../../../styles/index.css';
 
 const RepeatYearlyOn = ({
   mode,
@@ -30,11 +31,11 @@ const RepeatYearlyOn = ({
         )}
       </div>
 
-      <div className="col-sm-2">
+      <div className="col-sm-1">
         on
       </div>
 
-      <div className="col-sm-2">
+      <div className="month-on col-sm-2">
         <select
           name="repeat.yearly.on.month"
           aria-label="Repeat yearly on month"
@@ -47,7 +48,7 @@ const RepeatYearlyOn = ({
         </select>
       </div>
 
-      <div className="col-sm-2">
+      <div className="day-on col-sm-2">
         <select
           name="repeat.yearly.on.day"
           aria-label="Repeat yearly on a day"
