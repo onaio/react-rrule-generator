@@ -77,6 +77,7 @@ const configureState = (config = {}, calendarComponent) => {
       },
       never: {
         interval: 1,
+        frequency: 3,
       },
     },
     end: {

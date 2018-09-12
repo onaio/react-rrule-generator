@@ -1,7 +1,7 @@
 import RRule from 'rrule';
 
-const computeDaily = ({ interval }) => ({
-  freq: RRule.DAILY,
+const computeDaily = ({ interval, frequency }) => ({
+  freq: frequency !== undefined ? frequency : RRule.DAILY,
   interval,
 });
 

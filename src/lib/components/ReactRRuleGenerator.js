@@ -27,7 +27,8 @@ class ReactRRuleGenerator extends Component {
       this.setState({
         data,
         rrule: this.props.value,
-        selectedValue: null,
+        selectedValue: 'Never',
+        isNever: true,
       });
     }
   }
@@ -35,7 +36,10 @@ class ReactRRuleGenerator extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value) {
       const data = computeRRuleFromString(this.state.data, nextProps.value);
-      this.setState({ data, rrule: nextProps.value });
+      this.setState({
+        data,
+        rrule: nextProps.value,
+      });
     }
   }
 
@@ -47,27 +51,19 @@ class ReactRRuleGenerator extends Component {
     if (nextState.selectedValue !== this.state.selectedValue) {
       this.setState({
         selectedValue: nextState.selectedValue,
+        isNever: nextState.isNever,
       });
     }
   }
 
   handleChange = ({ target }) => {
     const newData = cloneDeep(this.state.data);
-    if (target.value === 'Never') {
-      this.setState({
-        isNever: target.value,
-      });
-    } else {
-      this.setState({
-        isNever: null,
-      });
-    }
     const value = target.value === 'Never' ? 'Daily' : target.value;
     set(newData, target.name, value);
     const rrule = computeRRuleToString(newData);
-
     this.setState({
       data: newData,
+      isNever: target.value === 'Never',
       rrule,
       selectedValue: target.value,
     });
