@@ -37,7 +37,7 @@ class ReactRRuleGenerator extends Component {
     if (nextProps.value) {
       const data = computeRRuleFromString(this.state.data, nextProps.value);
       this.setState({
-        data,
+      
         rrule: nextProps.value,
       });
     }
