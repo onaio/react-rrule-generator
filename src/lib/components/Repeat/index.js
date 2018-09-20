@@ -11,10 +11,17 @@ class Repeat extends React.Component {
     super(props);
     this.state = {
       selectedValue: this.props.selectedValue,
+      index: this.props.index
     };
     this.isOptionAvailable = this.isOptionAvailable.bind(this);
     this.isOptionSelected = this.isOptionSelected.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+  componentWillReceiveProps (nextProps) {
+    this.setState({
+      index: nextProps.index
+    });
+    
   }
 
   isOptionAvailable(option, options) {
@@ -32,6 +39,7 @@ class Repeat extends React.Component {
   }
 
   render() {
+   
     const { repeat, handleChange, isNever } = this.props;
     const { selectedValue } = this.state;
     const {
@@ -43,6 +51,7 @@ class Repeat extends React.Component {
       hourly,
       options,
     } = repeat;
+    console.log("index", this.props.index);
     return (
       <div className="px-3">
         <div className="form-group row">
@@ -62,7 +71,7 @@ class Repeat extends React.Component {
               name="repeat.frequency"
               id="Repeat frequency"
               className="form-control"
-              defaultValue={isNever ? 'Never' : frequency}
+              defaultValue={this.props.isEdit === null ? 'Never' : frequency}
               onChange={handleChange}
               onClick={e => this.handleClick(e)}
             >
@@ -76,8 +85,8 @@ class Repeat extends React.Component {
           </div>
         </div>
 
-        {this.isOptionSelected('Yearly', frequency) && <RepeatYearly yearly={yearly} handleChange={handleChange} />}
-        {this.isOptionSelected('Monthly', frequency) && <RepeatMonthly monthly={monthly} handleChange={handleChange} />}
+        {this.isOptionSelected('Yearly', frequency) && <RepeatYearly index={this.props.index} yearly={yearly} handleChange={handleChange} />}
+        {this.isOptionSelected('Monthly', frequency) && <RepeatMonthly index={this.props.index} monthly={monthly} handleChange={handleChange} />}
         {this.isOptionSelected('Weekly', frequency) && <RepeatWeekly weekly={weekly} handleChange={handleChange} />}
         {this.isOptionSelected('Daily', frequency) && selectedValue !== 'Never' && <RepeatDaily daily={daily} handleChange={handleChange} />}
         {this.isOptionSelected('Hourly', frequency) && <RepeatHourly hourly={hourly} handleChange={handleChange} />}

@@ -11,10 +11,10 @@ const RepeatYearlyOn = ({
   on,
   hasMoreModes,
   handleChange,
+  index
 }) => {
   const daysInMonth = moment(on.month || "Jan", 'MMM').daysInMonth();
   const isActive = mode === 'on';
-
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
@@ -23,6 +23,7 @@ const RepeatYearlyOn = ({
           <input
             type="radio"
             name="repeat.yearly.mode"
+            id={`repeat.yearly.mode.on-${index}`}
             aria-label="Repeat yearly on"
             value="on"
             checked={isActive}

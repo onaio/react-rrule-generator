@@ -9,6 +9,7 @@ const RepeatYearly = ({
     on,
     onThe,
     options,
+    index
   },
   handleChange,
 }) => {
@@ -18,6 +19,7 @@ const RepeatYearly = ({
     <div>
       {isOptionAvailable('on') && (
         <RepeatYearlyOn
+          index={index}
           mode={mode}
           on={on}
           hasMoreModes={!isTheOnlyOneMode('on')}
@@ -26,6 +28,7 @@ const RepeatYearly = ({
       )}
       {isOptionAvailable('on the') && (
         <RepeatYearlyOnThe
+          index={index}
           mode={mode}
           onThe={onThe}
           hasMoreModes={!isTheOnlyOneMode('on the')}

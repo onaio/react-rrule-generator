@@ -36,8 +36,10 @@ class ReactRRuleGenerator extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value) {
       const data = computeRRuleFromString(this.state.data, nextProps.value);
+      // console.log("props??", this.props);
+      // console.log("state??", this.state)
+      // console.log("data??", data)
       this.setState({
-      
         rrule: nextProps.value,
       });
     }
@@ -80,7 +82,6 @@ class ReactRRuleGenerator extends Component {
         error,
       },
     } = this.state;
-
     return (
       <div>
 
@@ -109,9 +110,11 @@ class ReactRRuleGenerator extends Component {
           <div>
             <Repeat
               repeat={repeat}
+              index={this.props.index}
               isNever={this.state.isNever}
               selectedValue={this.state.selectedValue}
               handleChange={this.handleChange}
+              isEdit={this.props.isEdit}
             />
           </div>
 
