@@ -41,6 +41,7 @@ class EndOnDate  extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     const { handleChange } = this.props;
     const { onDate } = this.state;
     const { date, options } = onDate;
@@ -48,7 +49,6 @@ class EndOnDate  extends React.Component {
     return(
       <div className="col-6 col-sm-6">
       {
-        
         <input
             type ="date"
             className = "form-control"
@@ -65,10 +65,6 @@ class EndOnDate  extends React.Component {
 EndOnDate.propTypes = {
   onDate: PropTypes.shape({
     date: PropTypes.string.isRequired,
-    options: PropTypes.shape({
-      weekStartsOnSunday: PropTypes.bool,
-      calendarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-    }).isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
 };
