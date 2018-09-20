@@ -63,7 +63,7 @@ const RepeatYearlyOnThe = ({
         of
       </div>
 
-      <div className="col-sm-2">
+      <div className="col-sm-3">
         <select
           name="repeat.yearly.onThe.month"
           aria-label="Repeat yearly on the month"

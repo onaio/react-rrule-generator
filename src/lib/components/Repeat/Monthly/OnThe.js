@@ -29,7 +29,7 @@ const RepeatMonthlyOnThe = ({
         on the
       </div>
 
-      <div className="col-sm-2">
+      <div className="col-sm-3">
         <select
           name="repeat.monthly.onThe.which"
           aria-label="Repeat monthly on the which"
@@ -46,7 +46,7 @@ const RepeatMonthlyOnThe = ({
         </select>
       </div>
 
-      <div className="col-sm-3">
+      <div className="col-sm-4">
         <select
           name="repeat.monthly.onThe.day"
           aria-label="Repeat monthly on the day"
