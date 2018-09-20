@@ -31,7 +31,7 @@ class EndOnDate  extends React.Component {
       },
     };
 
-    console.log("date", date.target.value)
+   
 
     this.setState({
       date: date.target.value,
@@ -41,11 +41,11 @@ class EndOnDate  extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    
     const { handleChange } = this.props;
     const { onDate } = this.state;
     const { date, options } = onDate;
-    console.log("props", this.props)
+   
     return(
       <div className="col-6 col-sm-6">
       {
