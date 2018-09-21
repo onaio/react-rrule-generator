@@ -2,26 +2,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { MONTHS, DAYS } from '../../../constants/index';
+class RepeatYearlyOnThe  extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+      mode: this.props.mode,
+      onThe: this.props.onThe,
+      hasMoreModes: this.props.hasMoreModes,
+      yearly: this.props.yearly,
+      index: this.props.index,
+     
+    };
+}
 
-const RepeatYearlyOnThe = ({
-  mode,
-  onThe,
-  hasMoreModes,
-  handleChange,
-  index,
-}) => {
-  const isActive = mode === 'on the';
+ render () {
+  const { yearly, handleChange, index } = this.props
+  const { mode } = yearly;
+  const modeVal = `mode${index}`;
+  const isActive = yearly[modeVal] === 'on the' || mode === 'on the';
   // console.log("yearly on the", onThe)
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
-        {hasMoreModes && (
+        {this.state.hasMoreModes && (
           <input
             type="radio"
             aria-label="Repeat yearly on the"
-            name={`repeat.yearly.mode${index}`}
+            name={`repeat.yearly.mode${this.state.index}`}
             key={index}
-            id={`repeat.yearly.mode.on-the-${index}`}
+            id={`repeat.yearly.mode.on-the-$${this.state.index}`}
             checked={isActive}
             value="on the"
             onChange={handleChange}
@@ -37,7 +46,7 @@ const RepeatYearlyOnThe = ({
           name="repeat.yearly.onThe.which"
           aria-label="Repeat yearly on the which"
           className="form-control"
-          value={onThe.which}
+          value={this.state.onThe.which}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -54,7 +63,7 @@ const RepeatYearlyOnThe = ({
           name="repeat.yearly.onThe.day"
           aria-label="Repeat yearly on the day"
           className="form-control"
-          value={onThe.day}
+          value={this.state.onThe.day}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -71,7 +80,7 @@ const RepeatYearlyOnThe = ({
           name="repeat.yearly.onThe.month"
           aria-label="Repeat yearly on the month"
           className="form-control"
-          value={onThe.month}
+          value={this.state.onThe.month}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -82,6 +91,8 @@ const RepeatYearlyOnThe = ({
     </div>
   );
 };
+
+}
 RepeatYearlyOnThe.propTypes = {
   mode: PropTypes.oneOf(['on', 'on the']).isRequired,
   onThe: PropTypes.shape({

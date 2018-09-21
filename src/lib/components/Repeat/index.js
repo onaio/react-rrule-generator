@@ -86,7 +86,7 @@ class Repeat extends React.Component {
 
         {this.isOptionSelected('Yearly', frequency) && <RepeatYearly checked={checked} index={this.state.index} yearly={yearly} handleChange={handleChange} />}
         {this.isOptionSelected('Monthly', frequency) && <RepeatMonthly checked={checked} index={this.state.index} monthly={monthly} handleChange={handleChange} />}
-        {this.isOptionSelected('Weekly', frequency) && <RepeatWeekly weekly={weekly} handleChange={handleChange} />}
+        {this.isOptionSelected('Weekly', frequency) && <RepeatWeekly weekly={weekly} index= {this.state.index} handleChange={handleChange} />}
         {this.isOptionSelected('Daily', frequency) && selectedValue !== 'Never' && <RepeatDaily daily={daily} handleChange={handleChange} />}
         {this.isOptionSelected('Hourly', frequency) && <RepeatHourly hourly={hourly} handleChange={handleChange} />}
 

@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 
 import { DAYS } from '../../../constants/index';
 
-const RepeatMonthlyOnThe = ({
-  mode,
-  onThe,
-  hasMoreModes,
-  handleChange,
-}) => {
-  const isActive = mode === 'on the';
+class RepeatMonthlyOnThe  extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+      mode: this.props.mode,
+      onThe: this.props.onThe,
+      hasMoreModes: this.props.hasMoreModes,
+      monthly: this.props.monthly,
+      index: this.props.index,    
+      };
+  }
+render ()  {
+  const { monthly,onThe, hasMoreModes, handleChange, index } = this.props
+  const { mode } = monthly;
+  const modeVal = `mode${index}`;
+  const isActive = monthly[modeVal] === 'on the';
+ 
 
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
@@ -60,16 +70,20 @@ const RepeatMonthlyOnThe = ({
       </div>
 
     </div>
-  );
-};
-RepeatMonthlyOnThe.propTypes = {
-  mode: PropTypes.oneOf(['on', 'on the']).isRequired,
-  onThe: PropTypes.shape({
-    which: PropTypes.oneOf(['First', 'Second', 'Third', 'Fourth', 'Last']).isRequired,
-    day: PropTypes.oneOf(DAYS).isRequired,
-  }).isRequired,
-  hasMoreModes: PropTypes.bool.isRequired,
-  handleChange: PropTypes.func.isRequired,
-};
+
+    );
+  };
+}
+  RepeatMonthlyOnThe.propTypes = {
+    mode: PropTypes.oneOf(['on', 'on the']).isRequired,
+    onThe: PropTypes.shape({
+      which: PropTypes.oneOf(['First', 'Second', 'Third', 'Fourth', 'Last']).isRequired,
+      day: PropTypes.oneOf(DAYS).isRequired,
+    }).isRequired,
+    hasMoreModes: PropTypes.bool.isRequired,
+    handleChange: PropTypes.func.isRequired,
+  };
+
+
 
 export default RepeatMonthlyOnThe;

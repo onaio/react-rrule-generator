@@ -32,13 +32,13 @@ class RepeatYearly  extends React.Component {
 //   handleChange,
 // }) => {
   render () {
-    
+    console.log('yeeeeeearly', yearly);
   const { yearly, index } = this.state;
   const { handleChange, checked } = this.props;
   const { mode, on, onThe, options } = yearly;
   const isTheOnlyOneMode = option => options.modes === option;
   const isOptionAvailable = option => !options.modes || isTheOnlyOneMode(option);
-  // console.log("index???", key);
+
   
   return (
     <div>

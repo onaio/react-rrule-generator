@@ -2,13 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import numericalFieldHandler from '../../../utils/numericalFieldHandler';
 
-const RepeatMonthlyOn = ({
-  mode,
-  on,
-  hasMoreModes,
-  handleChange,
-}) => {
-  const isActive = mode === 'on';
+class RepeatMonthlyOn  extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     mode: this.props.mode,
+     on: this.props.on,
+     hasMoreModes: this.props.hasMoreModes,
+     monthly: this.props.monthly,
+     index: this.props.index,
+     
+    };
+   
+  }
+
+render () {
+  const { on, hasMoreModes, monthly, handleChange, index } = this.props
+  const { mode } = monthly;
+  const modeVal = `mode${index}`;
+  const isActive = monthly[modeVal] === 'on';
+  
 
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
@@ -42,7 +55,8 @@ const RepeatMonthlyOn = ({
       </div>
     </div>
   );
-};
+  }
+ }
 RepeatMonthlyOn.propTypes = {
   mode: PropTypes.oneOf(['on', 'on the']).isRequired,
   on: PropTypes.shape({

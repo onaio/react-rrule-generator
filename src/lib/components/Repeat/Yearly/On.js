@@ -15,6 +15,7 @@ class RepeatYearlyOn  extends React.Component {
      hasMoreModes: this.props.hasMoreModes,
      yearly: this.props.yearly,
      index: this.props.index,
+     
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -41,7 +42,8 @@ class RepeatYearlyOn  extends React.Component {
   const { yearly, handleChange, index } = this.props
   const { mode } = yearly;
   const modeVal = `mode${index}`;
-  const isActive = yearly[modeVal] === 'on';
+  const isActive = yearly[modeVal] === 'on' || mode === 'on';
+  console.log("yearly on??", yearly)
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
