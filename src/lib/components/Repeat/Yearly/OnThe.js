@@ -8,7 +8,7 @@ const RepeatYearlyOnThe = ({
   onThe,
   hasMoreModes,
   handleChange,
-  index
+  index,
 }) => {
   const isActive = mode === 'on the';
   // console.log("yearly on the", onThe)
@@ -19,7 +19,8 @@ const RepeatYearlyOnThe = ({
           <input
             type="radio"
             aria-label="Repeat yearly on the"
-            name="repeat.yearly.mode"
+            name={`repeat.yearly.mode${index}`}
+            key={index}
             id={`repeat.yearly.mode.on-the-${index}`}
             checked={isActive}
             value="on the"

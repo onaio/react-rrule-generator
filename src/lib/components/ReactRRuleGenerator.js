@@ -59,6 +59,7 @@ class ReactRRuleGenerator extends Component {
   }
 
   handleChange = ({ target }) => {
+    debugger;
     const newData = cloneDeep(this.state.data);
     const value = target.value === 'Never' ? 'Daily' : target.value;
     set(newData, target.name, value);
@@ -68,6 +69,7 @@ class ReactRRuleGenerator extends Component {
       isNever: target.value === 'Never',
       rrule,
       selectedValue: target.value,
+      checked: target.checked,
     });
     this.props.onChange(rrule);
   };
@@ -115,6 +117,7 @@ class ReactRRuleGenerator extends Component {
               selectedValue={this.state.selectedValue}
               handleChange={this.handleChange}
               isEdit={this.props.isEdit}
+              checked={this.state.checked}
             />
           </div>
 

@@ -6,28 +6,55 @@ import numericalFieldHandler from '../../../utils/numericalFieldHandler';
 import { MONTHS } from '../../../constants/index';
 import '../../../styles/index.css';
 
-const RepeatYearlyOn = ({
-  mode,
-  on,
-  hasMoreModes,
-  handleChange,
-  index
-}) => {
-  const daysInMonth = moment(on.month || "Jan", 'MMM').daysInMonth();
-  const isActive = mode === 'on';
+class RepeatYearlyOn  extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     mode: this.props.mode,
+     on: this.props.on,
+     hasMoreModes: this.props.hasMoreModes,
+     yearly: this.props.yearly,
+     index: this.props.index,
+    };
+
+    this.handleClick = this.handleClick.bind(this);
+   
+  }
+
+  componentWillReceiveProps(nextProps) {
+    
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log("next props", nextProps)
+  }
+
+  handleClick(e) {
+    this.setState({
+      checked: e.target.checked,
+    })
+  }
+
+
+  render () {
+  const daysInMonth = moment(this.state.on.month || "Jan", 'MMM').daysInMonth();
+  const { yearly, handleChange, index } = this.props
+  const { mode } = yearly;
+  const modeVal = `mode${index}`;
+  const isActive = yearly[modeVal] === 'on';
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
-
-        {hasMoreModes && (
+        {this.state.hasMoreModes && (
           <input
             type="radio"
-            name="repeat.yearly.mode"
-            id={`repeat.yearly.mode.on-${index}`}
+            name={`repeat.yearly.mode${this.state.index}`}
+            key={this.state.index}
+            id={`repeat.yearly.mode.on-${this.state.index}`}
             aria-label="Repeat yearly on"
             value="on"
             checked={isActive}
-            onChange={handleChange}
+            onChange={this.handleClick}
           />
         )}
       </div>
@@ -41,7 +68,7 @@ const RepeatYearlyOn = ({
           name="repeat.yearly.on.month"
           aria-label="Repeat yearly on month"
           className="form-control"
-          value={on.month}
+          value={this.state.on.month}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -54,7 +81,7 @@ const RepeatYearlyOn = ({
           name="repeat.yearly.on.day"
           aria-label="Repeat yearly on a day"
           className="form-control"
-          value={on.day}
+          value={this.state.on.day}
           disabled={!isActive}
           onChange={numericalFieldHandler(handleChange)}
         >
@@ -64,8 +91,10 @@ const RepeatYearlyOn = ({
         </select>
       </div>
     </div>
-  );
-};
+    );
+  }
+}
+
 RepeatYearlyOn.propTypes = {
   mode: PropTypes.oneOf(['on', 'on the']).isRequired,
   on: PropTypes.shape({

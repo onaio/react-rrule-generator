@@ -40,7 +40,7 @@ class Repeat extends React.Component {
 
   render() {
    
-    const { repeat, handleChange, isNever } = this.props;
+    const { repeat, handleChange, checked } = this.props;
     const { selectedValue } = this.state;
     const {
       frequency,
@@ -51,7 +51,6 @@ class Repeat extends React.Component {
       hourly,
       options,
     } = repeat;
-    console.log("index", this.props.index);
     return (
       <div className="px-3">
         <div className="form-group row">
@@ -85,8 +84,8 @@ class Repeat extends React.Component {
           </div>
         </div>
 
-        {this.isOptionSelected('Yearly', frequency) && <RepeatYearly index={this.props.index} yearly={yearly} handleChange={handleChange} />}
-        {this.isOptionSelected('Monthly', frequency) && <RepeatMonthly index={this.props.index} monthly={monthly} handleChange={handleChange} />}
+        {this.isOptionSelected('Yearly', frequency) && <RepeatYearly checked={checked} index={this.state.index} yearly={yearly} handleChange={handleChange} />}
+        {this.isOptionSelected('Monthly', frequency) && <RepeatMonthly checked={checked} index={this.state.index} monthly={monthly} handleChange={handleChange} />}
         {this.isOptionSelected('Weekly', frequency) && <RepeatWeekly weekly={weekly} handleChange={handleChange} />}
         {this.isOptionSelected('Daily', frequency) && selectedValue !== 'Never' && <RepeatDaily daily={daily} handleChange={handleChange} />}
         {this.isOptionSelected('Hourly', frequency) && <RepeatHourly hourly={hourly} handleChange={handleChange} />}
