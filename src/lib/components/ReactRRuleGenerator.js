@@ -29,6 +29,7 @@ class ReactRRuleGenerator extends Component {
         rrule: this.props.value,
         selectedValue: 'Never',
         isNever: true,
+        repeat: data.repeat,
       });
     }
   }
@@ -37,7 +38,6 @@ class ReactRRuleGenerator extends Component {
     if (nextProps.value) {
       const data = computeRRuleFromString(this.state.data, nextProps.value);
       this.setState({
-        data,
         rrule: nextProps.value,
       });
     }
@@ -48,11 +48,12 @@ class ReactRRuleGenerator extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.selectedValue !== this.state.selectedValue) {
+    if (nextProps.value !== this.state.rrule) {
+      const data = computeRRuleFromString(nextState.data, nextProps.value);
       this.setState({
-        selectedValue: nextState.selectedValue,
-        isNever: nextState.isNever,
-      });
+        data,
+        repeat: nextState.repeat,
+      }); 
     }
   }
 
@@ -63,9 +64,11 @@ class ReactRRuleGenerator extends Component {
     const rrule = computeRRuleToString(newData);
     this.setState({
       data: newData,
+      repeat: newData.repeat,
       isNever: target.value === 'Never',
       rrule,
       selectedValue: target.value,
+      checked: target.checked,
     });
     this.props.onChange(rrule);
   };
@@ -80,7 +83,6 @@ class ReactRRuleGenerator extends Component {
         error,
       },
     } = this.state;
-
     return (
       <div>
 
@@ -92,7 +94,7 @@ class ReactRRuleGenerator extends Component {
           )
         }
 
-        <div className="px-0 pt-3 border rounded">
+        <div className="rrule-component px-0 pt-3 border rounded">
 
           {
             !options.hideStart && (
@@ -108,10 +110,13 @@ class ReactRRuleGenerator extends Component {
 
           <div>
             <Repeat
-              repeat={repeat}
+              repeat={this.state.repeat || repeat}
+              index={this.props.index}
               isNever={this.state.isNever}
               selectedValue={this.state.selectedValue}
               handleChange={this.handleChange}
+              isEdit={this.props.isEdit}
+              checked={this.state.checked}
             />
           </div>
 

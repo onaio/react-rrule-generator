@@ -105,6 +105,7 @@ const computeRRule = (data, rrule) => {
       },
       error: null,
     };
+    // console.log("rrule obj", rruleObj)
   } catch (e) {
     return { ...data, error: { value: rrule, message: e } };
   }

@@ -4,16 +4,21 @@ import RepeatMonthlyOn from './On';
 import RepeatMonthlyOnThe from './OnThe';
 import numericalFieldHandler from '../../../utils/numericalFieldHandler';
 
-const RepeatMonthly = ({
-  monthly: {
-    mode,
-    interval,
-    on,
-    onThe,
-    options,
-  },
-  handleChange,
-}) => {
+class RepeatMonthly  extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      monthly: this.props.monthly,
+      index: this.props.index
+    };
+   
+  }
+render () {
+
+  const { monthly, index } = this.state;
+  console.log(monthly);
+  const { handleChange } = this.props;
+  const { mode, on, onThe, options } = monthly;
   const isTheOnlyOneMode = option => options.modes === option;
   const isOptionAvailable = option => !options.modes || isTheOnlyOneMode(option);
 
@@ -28,7 +33,7 @@ const RepeatMonthly = ({
             name="repeat.monthly.interval"
             aria-label="Repeat monthly interval"
             className="form-control"
-            value={interval}
+            value={monthly.interval}
             onChange={numericalFieldHandler(handleChange)}
           />
         </div>
@@ -43,6 +48,8 @@ const RepeatMonthly = ({
           on={on}
           hasMoreModes={!isTheOnlyOneMode('on')}
           handleChange={handleChange}
+          monthly = {monthly}
+          index = {index}
         />
       )}
       {isOptionAvailable('on the') && (
@@ -51,13 +58,15 @@ const RepeatMonthly = ({
           onThe={onThe}
           hasMoreModes={!isTheOnlyOneMode('on the')}
           handleChange={handleChange}
+          monthly = {monthly}
+          index = {index}
         />
       )}
 
     </div>
-  );
-};
-
+    );
+  }
+}
 RepeatMonthly.propTypes = {
   monthly: PropTypes.shape({
     mode: PropTypes.oneOf(['on', 'on the']).isRequired,

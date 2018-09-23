@@ -1,79 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import DateTime from 'react-datetime';
-
 import 'moment/locale/en-gb';
 import 'moment/locale/en-ca';
 
 import { DATE_TIME_FORMAT } from '../../constants/index';
 
-const EndOnDate = ({
-  onDate: {
-    date,
-    options,
-  },
-  handleChange,
-}) => {
-  const CustomCalendar = options.calendarComponent;
+class EndOnDate  extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      date: this.props.onDate.date,
+      onDate: this.props.onDate
+    };
+    this.handleDateChange = this.handleDateChange.bind(this);
+  }
 
-  const locale = options.weekStartsOnSunday ? 'en-ca' : 'en-gb';
-  const calendarAttributes = {
-    'aria-label': 'Datetime picker for end on date',
-    value: date,
-    dateFormat: DATE_TIME_FORMAT,
-    locale,
-    readOnly: true,
-  };
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      onDate: nextProps.onDate,
+      date: nextProps.onDate.date
+    });
+  }
 
-  return (
-    <div className="col-6 col-sm-3">
+  handleDateChange(date) {
+    const editedEvent = {
+      target: {
+        value: moment(date.target.value).format(DATE_TIME_FORMAT),
+        name: 'end.onDate.date',
+      },
+    };
+
+   
+
+    this.setState({
+      date: date.target.value,
+    });
+    
+    this.props.handleChange(editedEvent);
+  }
+
+  render() {
+    
+    const { handleChange } = this.props;
+    const { onDate } = this.state;
+    const { date, options } = onDate;
+   
+    return(
+      <div className="col-6 col-sm-6">
       {
-        CustomCalendar
-          ? <CustomCalendar
-            {...calendarAttributes}
-            onChange={(event) => {
-              const editedEvent = {
-                target: {
-                  value: event.target.value,
-                  name: 'end.onDate.date',
-                },
-              };
-
-              handleChange(editedEvent);
-            }}
-          />
-          : <DateTime
-            {...calendarAttributes}
-            inputProps={{ name: 'end.onDate.date', readOnly: true }}
-            timeFormat={false}
-            viewMode="days"
-            closeOnSelect
-            closeOnTab
-            required
-            onChange={(inputDate) => {
-              const editedEvent = {
-                target: {
-                  value: moment(inputDate).format(DATE_TIME_FORMAT),
-                  name: 'end.onDate.date',
-                },
-              };
-
-              handleChange(editedEvent);
-            }}
+        <input
+            type ="date"
+            className = "form-control"
+            name = "end.onDate.date"
+            value={this.state.date}
+            onChange={(e) => this.handleDateChange(e)}
           />
       }
     </div>
-  );
-};
+    );
+  }
+}
 
 EndOnDate.propTypes = {
   onDate: PropTypes.shape({
     date: PropTypes.string.isRequired,
-    options: PropTypes.shape({
-      weekStartsOnSunday: PropTypes.bool,
-      calendarComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.func]),
-    }).isRequired,
   }).isRequired,
   handleChange: PropTypes.func.isRequired,
 };
