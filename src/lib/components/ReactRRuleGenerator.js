@@ -29,6 +29,7 @@ class ReactRRuleGenerator extends Component {
         rrule: this.props.value,
         selectedValue: 'Never',
         isNever: true,
+        repeat: data.repeat,
       });
     }
   }
@@ -36,9 +37,6 @@ class ReactRRuleGenerator extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.value) {
       const data = computeRRuleFromString(this.state.data, nextProps.value);
-      // console.log("props??", this.props);
-      // console.log("state??", this.state)
-      // console.log("data??", data)
       this.setState({
         rrule: nextProps.value,
       });
@@ -50,22 +48,23 @@ class ReactRRuleGenerator extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.selectedValue !== this.state.selectedValue) {
+    if (nextProps.value !== this.state.rrule) {
+      const data = computeRRuleFromString(nextState.data, nextProps.value);
       this.setState({
-        selectedValue: nextState.selectedValue,
-        isNever: nextState.isNever,
-      });
+        data,
+        repeat: nextState.repeat,
+      }); 
     }
   }
 
   handleChange = ({ target }) => {
-    debugger;
     const newData = cloneDeep(this.state.data);
     const value = target.value === 'Never' ? 'Daily' : target.value;
     set(newData, target.name, value);
     const rrule = computeRRuleToString(newData);
     this.setState({
       data: newData,
+      repeat: newData.repeat,
       isNever: target.value === 'Never',
       rrule,
       selectedValue: target.value,
@@ -111,7 +110,7 @@ class ReactRRuleGenerator extends Component {
 
           <div>
             <Repeat
-              repeat={repeat}
+              repeat={this.state.repeat || repeat}
               index={this.props.index}
               isNever={this.state.isNever}
               selectedValue={this.state.selectedValue}

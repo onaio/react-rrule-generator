@@ -4,23 +4,33 @@ import PropTypes from 'prop-types';
 import { MONTHS, DAYS } from '../../../constants/index';
 class RepeatYearlyOnThe  extends React.Component {
   constructor(props) {
-      super(props);
-      this.state = {
+    super(props);
+    this.state = {
       mode: this.props.mode,
       onThe: this.props.onThe,
       hasMoreModes: this.props.hasMoreModes,
       yearly: this.props.yearly,
       index: this.props.index,
-     
+      isActive: this.props.mode === 'on the',
+      activeOpt: this.props.activeOpt
     };
-}
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { yearly, index } = nextProps;
+    const { mode } = yearly;
+    const modeVal = `mode${index}`;
+    this.setState({
+      activeOpt: nextProps.activeOpt,
+      yearly: yearly,
+      isActive: modeVal && yearly[modeVal] ? yearly[modeVal] === 'on the' : mode === 'on the'
+    });
+  }
 
  render () {
-  const { yearly, handleChange, index } = this.props
-  const { mode } = yearly;
-  const modeVal = `mode${index}`;
-  const isActive = yearly[modeVal] === 'on the' || mode === 'on the';
-  // console.log("yearly on the", onThe)
+  const { handleChange, index } = this.props;
+  const { yearly, activeOpt } = this.state;
+  const isActive = activeOpt === 'on the';
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
@@ -34,6 +44,7 @@ class RepeatYearlyOnThe  extends React.Component {
             checked={isActive}
             value="on the"
             onChange={handleChange}
+            onClick={(e) => this.props.handleClick(e)}
           />
         )}
       </div>
@@ -46,7 +57,7 @@ class RepeatYearlyOnThe  extends React.Component {
           name="repeat.yearly.onThe.which"
           aria-label="Repeat yearly on the which"
           className="form-control"
-          value={this.state.onThe.which}
+          value={yearly.onThe.which}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -63,7 +74,7 @@ class RepeatYearlyOnThe  extends React.Component {
           name="repeat.yearly.onThe.day"
           aria-label="Repeat yearly on the day"
           className="form-control"
-          value={this.state.onThe.day}
+          value={yearly.onThe.day}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -80,7 +91,7 @@ class RepeatYearlyOnThe  extends React.Component {
           name="repeat.yearly.onThe.month"
           aria-label="Repeat yearly on the month"
           className="form-control"
-          value={this.state.onThe.month}
+          value={yearly.onThe.month}
           disabled={!isActive}
           onChange={handleChange}
         >

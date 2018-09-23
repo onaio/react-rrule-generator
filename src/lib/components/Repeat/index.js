@@ -11,7 +11,8 @@ class Repeat extends React.Component {
     super(props);
     this.state = {
       selectedValue: this.props.selectedValue,
-      index: this.props.index
+      index: this.props.index,
+      repeat: this.props.repeat,
     };
     this.isOptionAvailable = this.isOptionAvailable.bind(this);
     this.isOptionSelected = this.isOptionSelected.bind(this);
@@ -19,7 +20,8 @@ class Repeat extends React.Component {
   }
   componentWillReceiveProps (nextProps) {
     this.setState({
-      index: nextProps.index
+      index: nextProps.index,
+      repeat: nextProps.repeat,
     });
     
   }
@@ -40,7 +42,8 @@ class Repeat extends React.Component {
 
   render() {
    
-    const { repeat, handleChange, checked } = this.props;
+    const { handleChange, checked } = this.props;
+    const { repeat } = this.state;
     const { selectedValue } = this.state;
     const {
       frequency,

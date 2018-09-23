@@ -8,16 +8,23 @@ class RepeatYearly  extends React.Component {
     super(props);
     this.state = {
       yearly: this.props.yearly,
-      index: this.props.index
+      index: this.props.index,
+      activeOpt: 'on',
     };
-   
+    this.handleClick = this.handleClick.bind(this);
   }
   componentWillMount() {
     
   }
   componentWillReceiveProps(nextprops) {
     this.setState({
-      yearly: nextprops.yearly
+      yearly: nextprops.yearly,
+    });
+  }
+
+  handleClick(e) {
+    this.setState({
+      activeOpt: e.target.value,
     });
   }
 
@@ -32,14 +39,11 @@ class RepeatYearly  extends React.Component {
 //   handleChange,
 // }) => {
   render () {
-    console.log('yeeeeeearly', yearly);
-  const { yearly, index } = this.state;
+  const { yearly, index, activeOpt } = this.state;
   const { handleChange, checked } = this.props;
   const { mode, on, onThe, options } = yearly;
   const isTheOnlyOneMode = option => options.modes === option;
   const isOptionAvailable = option => !options.modes || isTheOnlyOneMode(option);
-
-  
   return (
     <div>
       {isOptionAvailable('on') && (
@@ -51,6 +55,8 @@ class RepeatYearly  extends React.Component {
           yearly={yearly}
           hasMoreModes={!isTheOnlyOneMode('on')}
           handleChange={handleChange}
+          activeOpt={activeOpt}
+          handleClick={this.handleClick}
         />
       )}
       {isOptionAvailable('on the') && (
@@ -62,6 +68,8 @@ class RepeatYearly  extends React.Component {
           onThe={onThe}
           hasMoreModes={!isTheOnlyOneMode('on the')}
           handleChange={handleChange}
+          activeOpt={activeOpt}
+          handleClick={this.handleClick}
         />
       )}
     </div>

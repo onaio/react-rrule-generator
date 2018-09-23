@@ -15,35 +15,27 @@ class RepeatYearlyOn  extends React.Component {
      hasMoreModes: this.props.hasMoreModes,
      yearly: this.props.yearly,
      index: this.props.index,
-     
+     isActive: this.props.mode === 'on',
+     activeOpt: this.props.activeOpt,
     };
-
-    this.handleClick = this.handleClick.bind(this);
-   
   }
 
   componentWillReceiveProps(nextProps) {
-    
-  }
-
-  componentWillUpdate(nextProps, nextState) {
-    console.log("next props", nextProps)
-  }
-
-  handleClick(e) {
+    const { yearly, index } = nextProps;
+    const { mode } = yearly;
+    const modeVal = `mode${index}`;
     this.setState({
-      checked: e.target.checked,
-    })
+      activeOpt: nextProps.activeOpt,
+      yearly: yearly,
+      isActive: modeVal && yearly[modeVal] ? yearly[modeVal] === 'on' : mode === 'on'
+    });
   }
-
 
   render () {
   const daysInMonth = moment(this.state.on.month || "Jan", 'MMM').daysInMonth();
-  const { yearly, handleChange, index } = this.props
-  const { mode } = yearly;
-  const modeVal = `mode${index}`;
-  const isActive = yearly[modeVal] === 'on' || mode === 'on';
-  console.log("yearly on??", yearly)
+  const { handleChange, index } = this.props;
+  const { yearly, activeOpt } = this.state;
+  const isActive = activeOpt === 'on';
   return (
     <div className={`form-group row d-flex align-items-sm-center ${!isActive && 'opacity-50'}`}>
       <div className="col-sm-1 offset-sm-3">
@@ -56,7 +48,8 @@ class RepeatYearlyOn  extends React.Component {
             aria-label="Repeat yearly on"
             value="on"
             checked={isActive}
-            onChange={this.handleClick}
+            onChange={handleChange}
+            onClick={(e) => this.props.handleClick(e)}
           />
         )}
       </div>
@@ -70,7 +63,7 @@ class RepeatYearlyOn  extends React.Component {
           name="repeat.yearly.on.month"
           aria-label="Repeat yearly on month"
           className="form-control"
-          value={this.state.on.month}
+          value={yearly.on.month}
           disabled={!isActive}
           onChange={handleChange}
         >
@@ -83,7 +76,7 @@ class RepeatYearlyOn  extends React.Component {
           name="repeat.yearly.on.day"
           aria-label="Repeat yearly on a day"
           className="form-control"
-          value={this.state.on.day}
+          value={yearly.on.day}
           disabled={!isActive}
           onChange={numericalFieldHandler(handleChange)}
         >
